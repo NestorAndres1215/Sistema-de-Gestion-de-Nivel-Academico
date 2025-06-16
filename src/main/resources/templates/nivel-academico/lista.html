@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nivel Académico por Estudiante</title>
+    <style>
+        /* Container Styling */
+        .content-container {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.7s ease-out;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Header Styling */
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: fadeDown 0.7s ease-out;
+        }
+
+        h2 i {
+            color: #3b82f6;
+            font-size: 1.5rem;
+            transition: transform 0.4s cubic-bezier(.68, -0.55, .27, 1.55), color 0.3s;
+        }
+
+        h2:hover i {
+            transform: scale(1.2) rotate(8deg);
+        }
+
+        /* Form Styling */
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.7s ease-out;
+        }
+
+        label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        label i {
+            color: #6b7280;
+            font-size: 1rem;
+        }
+
+        /* Select Styling */
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        select {
+            padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            width: 100%;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+            background: #fff;
+            appearance: none;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            transform: scale(1.02);
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 0.75rem;
+            color: #6b7280;
+            font-size: 1rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+            z-index: 1;
+        }
+
+        select:focus+i {
+            color: #3b82f6;
+            transform: scale(1.1);
+        }
+
+        /* Custom Select Arrow */
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-wrapper::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: #6b7280;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            transition: color 0.3s ease;
+        }
+
+        select:focus+i+.select-wrapper::after {
+            color: #3b82f6;
+        }
+
+        /* Card Styling */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            animation: fadeIn 0.7s ease-out;
+        }
+
+        .nivel-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10);
+            padding: 1.5rem;
+            transition: background 0.2s ease, transform 0.3s ease;
+        }
+
+        .nivel-card:hover {
+            background: #f1f5f9;
+            transform: translateY(-4px);
+        }
+
+        .nivel-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .nivel-card p {
+            font-size: 1rem;
+            color: #4b5563;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .nivel-card .estado-aprobado {
+            color: #047857;
+            font-weight: 600;
+        }
+
+        .nivel-card .estado-desaprobado {
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content-container {
+                padding: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            select {
+                font-size: 0.875rem;
+                padding-left: 2.25rem;
+            }
+
+            .input-wrapper i {
+                font-size: 0.875rem;
+            }
+
+            .nivel-card {
+                padding: 1rem;
+            }
+
+            .nivel-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .nivel-card p {
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section layout:fragment="content">
+        <header class="admin-header">
+            <h2>
+                <i class="fas fa-clipboard-check"></i>
+                <span>Nivel Académico por Estudiante</span>
+            </h2>
+        </header>
+
+        <div class="content-container">
+            <div class="filter-group">
+                <label for="estado">
+                    <i class="fas fa-user-graduate"></i> Selecciona un estado
+                </label>
+                <div class="input-wrapper select-wrapper">
+                    <i class="fas fa-user-graduate"></i>
+             <select id="estado" onchange="filtrarEstadoServidor()">
+                        <option value="">-- Ver todos --</option>
+                        <option value="aprobado" th:selected="${estadoSeleccionado == 'aprobado'}">Aprobado</option>
+                        <option value="desaprobado" th:selected="${estadoSeleccionado == 'desaprobado'}">Desaprobado
+                        </option>
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="cards-container" id="nivelesCards">
+                <div class="nivel-card" th:each="nivel : ${niveles}">
+                    <h3 th:text="${nivel.estudiante.nombre + ' ' + nivel.estudiante.apellido}">Nombre Apellido</h3>
+                    <p th:text="'DNI: ' + ${nivel.estudiante.dni}">DNI</p>
+                    <p th:text="'Promedio: ' + ${nivel.promedio}">Promedio</p>
+                    <p th:classappend="${nivel.estado == 'Aprobado'} ? 'estado-aprobado' : 'estado-desaprobado'"
+                        th:text="'Estado: ' + ${nivel.estado}">Estado</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<script>
+    function filtrarEstadoServidor() {
+        const estado = document.getElementById("estado").value;
+        console.log("Estado seleccionado:", estado);
+        window.location.href = "/nivel-academico" + (estado ? "?estado=" + estado : "");
+    }
+</script>
+</body>
+
+</html>

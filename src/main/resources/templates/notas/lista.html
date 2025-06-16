@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notas</title>
+    <style>
+        /* Container Styling */
+        .content-container {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.7s ease-out;
+        }
+
+        /* Header Styling */
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: fadeDown 0.7s ease-out;
+        }
+
+        h2 i {
+            color: #3b82f6;
+            font-size: 1.5rem;
+            transition: transform 0.4s cubic-bezier(.68, -0.55, .27, 1.55), color 0.3s;
+        }
+
+        /* Button Styling */
+        .action-button {
+            padding: 0.75rem 1.5rem;
+            background: #1e3a8a;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            margin-bottom: 1rem;
+        }
+
+        .action-button i {
+            transition: transform 0.4s cubic-bezier(.68, -0.55, .27, 1.55), color 0.3s;
+        }
+
+        .action-button:hover i {
+            transform: scale(1.2) rotate(8deg);
+        }
+
+        /* Table Action Button */
+        .table-action-button {
+            padding: 0.5rem 1rem;
+            background: #3b82f6;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+        }
+
+        .table-action-button i {
+            transition: transform 0.4s cubic-bezier(.68, -0.55, .27, 1.55), color 0.3s;
+        }
+
+        .table-action-button:hover i {
+            transform: scale(1.2) rotate(8deg);
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.7s ease-out;
+        }
+
+        input[type="text"] {
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            width: 250px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            transform: scale(1.02);
+        }
+
+        form button {
+            padding: 0.75rem 1.5rem;
+            background: #1e3a8a;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        form button i {
+            transition: transform 0.4s cubic-bezier(.68, -0.55, .27, 1.55), color 0.3s;
+        }
+
+        form button:hover i {
+            transform: scale(1.2) rotate(8deg);
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.10);
+            overflow: hidden;
+            margin-top: 1.5rem;
+            animation: fadeIn 0.7s ease-out;
+        }
+
+        th,
+        td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #1e3a8a;
+            color: #fff;
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        tr {
+            transition: background 0.2s ease, transform 0.3s ease;
+        }
+
+        tr:hover {
+            background: #f1f5f9;
+            transform: translateY(-2px);
+        }
+
+        /* Pagination Styling */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pagination-button {
+            padding: 0.5rem 1rem;
+            background: #1e3a8a;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+        }
+
+        .pagination-button:hover {
+            background: #3b82f6;
+            transform: scale(1.05);
+        }
+
+        .pagination-button:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .pagination-button.active {
+            background: #3b82f6;
+            font-weight: 700;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content-container {
+                margin-left: 0;
+                padding: 1.5rem;
+            }
+
+            table {
+                font-size: 0.875rem;
+            }
+
+            th,
+            td {
+                padding: 0.5rem;
+            }
+
+            form {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            input[type="text"] {
+                width: 100%;
+            }
+
+            form button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .action-button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .table-action-button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .pagination {
+                gap: 0.3rem;
+            }
+
+            .pagination-button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section layout:fragment="content">
+        <header class="admin-header">
+            <h1 class="admin-title">Mantenimiento de Estudiante</h1>
+        </header>
+        <div class="content-container">
+            <a th:href="@{/notas/nuevo}" class="action-button"><i class="fas fa-plus-circle"></i> Nuevo
+                Nota</a>
+            <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+                <thead class="bg-indigo-800 text-white">
+                    <tr>
+                        <th class="py-2 px-4">Estudiante</th>
+                        <th class="py-2 px-4">Nota 1</th>
+                        <th class="py-2 px-4">Nota 2</th>
+                        <th class="py-2 px-4">Nota 3</th>
+                        <th class="py-2 px-4">Nota Final</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="nota : ${notas}" class="border-b hover:bg-gray-50">
+                        <td class="py-2 px-4" th:text="${nota.estudiante.nombre}"></td>
+                        <td class="py-2 px-4" th:text="${nota.nota1}"></td>
+                        <td class="py-2 px-4" th:text="${nota.nota2}"></td>
+                        <td class="py-2 px-4" th:text="${nota.nota3}"></td>
+                        <td class="py-2 px-4" th:text="${nota.notaFinal}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+
+
+</body>
+
+</html>
