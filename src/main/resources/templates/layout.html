@@ -395,6 +395,12 @@
             <!-- Aquí va el contenido de cada página -->
         </main>
     </div>
+     <script>
+      function filtrarEstadoServidor() {
+          const estado = document.getElementById("estado").value;
+          window.location.href = "/nivel-academico" + (estado ? "?estado=" + estado : "");
+      }
+    </script>
 </body>
 
 </html>

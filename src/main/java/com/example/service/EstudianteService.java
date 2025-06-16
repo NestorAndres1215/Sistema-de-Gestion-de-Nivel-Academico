@@ -63,4 +63,8 @@ public class EstudianteService {
         }
         return null;
     }
+
+    public long contarEstudiantes() {
+        return estudianteRepository.count();
+    }
 }

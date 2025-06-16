@@ -22,7 +22,7 @@ public class NivelAcademicoService {
             nivel.setEstudiante(estudiante);
         }
         nivel.setPromedio(promedio);
-        nivel.setEstado(promedio >= 11 ? "Aprobado" : "Desaprobado");
+        nivel.setEstado(promedio >= 13 ? "Aprobado" : "Desaprobado");
         nivelAcademicoRepository.save(nivel);
     }
 
@@ -33,7 +33,16 @@ public class NivelAcademicoService {
     public NivelAcademico obtenerPorEstudiante(Long estudianteId) {
         return nivelAcademicoRepository.findByEstudianteId(estudianteId);
     }
+
     public List<NivelAcademico> buscarPorEstado(String estado) {
-    return nivelAcademicoRepository.findByEstado(estado);
-}
+        return nivelAcademicoRepository.findByEstadoIgnoreCase(estado);
+    }
+        public long contarNotasRegistradas() {
+        return nivelAcademicoRepository.count();
+    }
+
+    public Double obtenerPromedioGeneral() {
+        Double promedio = nivelAcademicoRepository.obtenerPromedioGeneral();
+        return promedio != null ? promedio : 0.0;
+    }
 }

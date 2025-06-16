@@ -31,14 +31,16 @@ public class NotaService {
 
     public boolean validarNotas(Nota nota) {
         return nota.getNota1() != null && nota.getNota1() >= 0 && nota.getNota1() <= 20 &&
-               nota.getNota2() != null && nota.getNota2() >= 0 && nota.getNota2() <= 20 &&
-               nota.getNota3() != null && nota.getNota3() >= 0 && nota.getNota3() <= 20;
+                nota.getNota2() != null && nota.getNota2() >= 0 && nota.getNota2() <= 20 &&
+                nota.getNota3() != null && nota.getNota3() >= 0 && nota.getNota3() <= 20;
     }
 
     public Double calcularNotaFinal(Nota nota) {
         return (nota.getNota1() + nota.getNota2() + nota.getNota3()) / 3.0;
     }
+
     public Nota buscarPorEstudiante(Estudiante estudiante) {
-    return notaRepository.findByEstudiante(estudiante);
-}
+        return notaRepository.findByEstudiante(estudiante);
+    }
+    
 }

@@ -245,12 +245,10 @@
                 </label>
                 <div class="input-wrapper select-wrapper">
                     <i class="fas fa-user-graduate"></i>
-             <select id="estado" onchange="filtrarEstadoServidor()">
+               <select id="estado" onchange="filtrarEstadoServidor()">
                         <option value="">-- Ver todos --</option>
-                        <option value="aprobado" th:selected="${estadoSeleccionado == 'aprobado'}">Aprobado</option>
-                        <option value="desaprobado" th:selected="${estadoSeleccionado == 'desaprobado'}">Desaprobado
-                        </option>
-                        </option>
+                        <option value="Aprobado" th:selected="${estadoSeleccionado == 'Aprobado'}">Aprobado</option>
+                        <option value="Desaprobado" th:selected="${estadoSeleccionado == 'Desaprobado'}">Desaprobado</option>
                     </select>
                 </div>
             </div>
@@ -259,7 +257,7 @@
                 <div class="nivel-card" th:each="nivel : ${niveles}">
                     <h3 th:text="${nivel.estudiante.nombre + ' ' + nivel.estudiante.apellido}">Nombre Apellido</h3>
                     <p th:text="'DNI: ' + ${nivel.estudiante.dni}">DNI</p>
-                    <p th:text="'Promedio: ' + ${nivel.promedio}">Promedio</p>
+                    <p th:text="'Promedio: ' + ${#numbers.formatDecimal(nivel.promedio, 1, 'POINT', 2, 'POINT')}">Promedio</p>
                     <p th:classappend="${nivel.estado == 'Aprobado'} ? 'estado-aprobado' : 'estado-desaprobado'"
                         th:text="'Estado: ' + ${nivel.estado}">Estado</p>
                 </div>
@@ -270,10 +268,10 @@
 <script>
     function filtrarEstadoServidor() {
         const estado = document.getElementById("estado").value;
-        console.log("Estado seleccionado:", estado);
         window.location.href = "/nivel-academico" + (estado ? "?estado=" + estado : "");
     }
 </script>
+
 </body>
 
 </html>

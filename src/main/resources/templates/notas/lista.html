@@ -288,7 +288,7 @@
 <body>
     <section layout:fragment="content">
         <header class="admin-header">
-            <h1 class="admin-title">Mantenimiento de Estudiante</h1>
+            <h1 class="admin-title">Mantenimiento de Notas</h1>
         </header>
         <div class="content-container">
             <a th:href="@{/notas/nuevo}" class="action-button"><i class="fas fa-plus-circle"></i> Nuevo
@@ -309,13 +309,24 @@
                         <td class="py-2 px-4" th:text="${nota.nota1}"></td>
                         <td class="py-2 px-4" th:text="${nota.nota2}"></td>
                         <td class="py-2 px-4" th:text="${nota.nota3}"></td>
-                        <td class="py-2 px-4" th:text="${nota.notaFinal}"></td>
+                        <td class="py-2 px-4 nota" th:text="${#numbers.formatDecimal(nota.notaFinal, 1, 2)}"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const notas = document.querySelectorAll(".nota");
 
+            notas.forEach(function (celda) {
+                const valor = parseFloat(celda.textContent);
+                if (!isNaN(valor)) {
+                    celda.textContent = valor.toFixed(2); // redondea a 2 decimales
+                }
+            });
+        });
+    </script>
 
 
 </body>

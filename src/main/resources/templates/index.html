@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
 
 <head>
     <title>Inicio</title>
@@ -28,56 +27,58 @@
             <section class="p-6 fade-in">
                 <!-- Cards -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <!-- Total Estudiantes -->
                     <div class="card">
                         <div class="flex items-center">
                             <i class="fas fa-user-graduate text-indigo-500 text-3xl mr-4"></i>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-700">Estudiantes</h3>
-                                <p class="text-2xl font-bold text-gray-900">1,234</p>
+                                <p class="text-2xl font-bold text-gray-900" th:text="${totalEstudiantes}">0</p>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Notas Registradas -->
                     <div class="card">
                         <div class="flex items-center">
                             <i class="fas fa-file-alt text-green-500 text-3xl mr-4"></i>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-700">Notas Registradas</h3>
-                                <p class="text-2xl font-bold text-gray-900">5,678</p>
+                                <p class="text-2xl font-bold text-gray-900" th:text="${totalNotas}">0</p>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Promedio General -->
                     <div class="card">
                         <div class="flex items-center">
                             <i class="fas fa-chart-line text-red-500 text-3xl mr-4"></i>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-700">Promedio General</h3>
-                                <p class="text-2xl font-bold text-gray-900">8.5</p>
+                                <p class="text-2xl font-bold text-gray-900"
+                                    th:text="${#numbers.formatDecimal(promedioGeneral, 1, 'POINT', 2, 'POINT')}">
+                                    0.00
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Actividad Reciente -->
+
+                <!-- Descripción del Curso -->
                 <div class="card">
-                    <h3 class="text-lg font-semibold text-gray-700 mb-4">Actividad Reciente</h3>
-                    <ul class="space-y-4">
-                        <li class="flex items-center">
-                            <i class="fas fa-plus-circle text-blue-500 mr-2"></i>
-                            <span>Nuevo estudiante registrado: Juan Pérez</span>
-                            <span class="ml-auto text-gray-500 text-sm">Hace 2 horas</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-file-upload text-green-500 mr-2"></i>
-                            <span>Archivo Excel importado: Notas 2025</span>
-                            <span class="ml-auto text-gray-500 text-sm">Hace 4 horas</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-edit text-yellow-500 mr-2"></i>
-                            <span>Notas actualizadas para Matemáticas</span>
-                            <span class="ml-auto text-gray-500 text-sm">Ayer</span>
-                        </li>
-                    </ul>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">Curso de Inglés</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        El curso de Inglés tiene como objetivo desarrollar las habilidades básicas de comprensión y
+                        expresión oral y escrita en el idioma.
+                        A lo largo del ciclo se evalúan tres notas principales y se calcula un promedio final.
+                        <br><br>
+                        Para aprobar el curso, el estudiante debe obtener un <strong>promedio mínimo de 13</strong>
+                        sobre 20.
+                        Aquellos que no alcancen esta nota serán considerados desaprobados.
+                    </p>
                 </div>
+
             </section>
         </div>
     </section>
